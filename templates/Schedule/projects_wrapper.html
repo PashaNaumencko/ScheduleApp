@@ -1,0 +1,94 @@
+{% extends "Schedule/index_wrapper.html" %}
+{% load static %}
+{% block content %}
+    <div class="projects">
+        <div class="projects-nav">
+            <ul class="list">
+                <li class="projects-nav__item">
+                    <a href="{% url "my" %}" class="link active projects-nav__link" id="">Поточні проекти</a>
+                </li>
+                <li class="projects-nav__item">
+                    <a href="{% url "current" %}" class="link projects-nav__link" id="">Мої проекти</a>
+                </li>
+                <li class="projects-nav__item">
+                    <a href="{% url "requests" %}" class="link projects-nav__link" id="">Заявки</a>
+                </li>
+            </ul>
+
+            <button class="button" id="createProjectButton">
+                <span class="button__icon">
+                    <img src="{% static "img/add-new-project.svg" %}" alt="">
+                </span>
+                <span class="button__text">Створити проект</span>
+            </button>
+        </div>
+        <div class="projects-list">
+            {% block projects %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="modal" id="createProjectOpen" tabindex="-1" role="dialog">
+        <div class="modal__content">
+            <div class="modal__header">
+                <div class="modal__header-text">Заявка на створення проекту</div>
+                <span class="modal__close" id="createProjectClose">&times;</span>
+            </div>
+                <div class="modal__body">
+                    <form action="" method="POST" class="form" id="createProjectForm">
+                        {% csrf_token %}
+
+                        <label for="projectTitle" class="label">
+                            Назва проекту *
+                        </label>
+                        <div class="input-wrap">
+                            <span class="input-wrap__icon">
+                                <img src="{% static "img/insert_invitation.svg" %}" alt="" class="input-wrap__img">
+                            </span>
+                            <input name="title" type="text" class="text-input" id="projectTitle">
+                        </div>
+
+                        <label for="projectDesc" class="label">
+                            Опис проекту *
+                        </label>
+                        <div class="input-wrap">
+                            <span class="input-wrap__icon">
+                                <img src="{% static "img/insert_invitation.svg" %}" alt="" class="input-wrap__img">
+                            </span>
+                            <textarea name="desc" class="textarea" id="projectDesc" cols="30" rows="10"></textarea>
+                        </div>
+
+
+{#                        <label class="label mb-10">#}
+{#                            <span>Опис проекту *</span>#}
+{#                            <textarea name="desc" class="textarea" id="projectDesc" cols="30" rows="10"></textarea>#}
+{#                        </label>#}
+
+                        <label for="projectDocInput" class="label mb-10">
+                            Документ вашого проекту
+                        </label>
+
+                        <div class="file-input">
+                            <input name="document" type="file" class="file-input__input" id="projectDocInput">
+                            <button type="button" class="file-input__browse" id="projectDocUploadButton">
+                               Переглянути файли
+                            </button>
+                            <span class="file-input__info">Завантажити файл</span>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal__footer">
+                    <button type="submit" class="button" form="createProjectForm">
+                        <span class="button__icon">
+                            <img src="{% static "img/add-request.svg" %}" alt="">
+                        </span>
+                        <span class="button__text">Відправити заявку</span>
+                    </button>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static "js/projects.js" %}"></script>
+{% endblock %}

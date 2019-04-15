@@ -1,0 +1,71 @@
+{% extends "Schedule/index_wrapper.html" %}
+{% load static %}
+{% block content %}
+    <!-- Calendar Holder -->
+    <div class="calendar">
+        <div class="calendar__body" id="calendar"></div>
+    </div>
+
+    <div class="modal" id="createRequestOpen" tabindex="-1" role="dialog">
+        <div class="modal__content">
+            <div class="modal__header">
+                <div class="modal__header-text">Заявка на отримання обладнання</div>
+                <span class="modal__close" id="createRequestClose">&times;</span>
+            </div>
+                <div class="modal__body">
+                    <form action="{% url "schedule" %}" name="createRequestForm" method="POST" class="form" id="createRequestForm">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="auth_code" id="authCode">
+
+                        <label for="requestTime" class="label">
+                            Період експлуатації *
+                        </label>
+
+                        <div class="input-wrap">
+                            <span class="input-wrap__icon">
+                                <img src="{% static "img/insert_invitation.svg" %}" alt="" class="input-wrap__img">
+                            </span>
+                            <input name="time" type="text" class="text-input datepicker-here"
+                                   data-range="true" data-multiple-dates-separator=" - "
+                                   data-timepicker="true" id="requestTime">
+                        </div>
+
+                        <label for="requestEquip" class="label">
+                            Оберіть обладнання *
+                        </label>
+                        <div class="input-wrap">
+                            <span class="input-wrap__icon">
+                                <img src="{% static "img/insert_invitation.svg" %}" alt="" class="input-wrap__img">
+                            </span>
+                            <select name="equipment" id="requestEquip" class="select">
+                                <option value="equipment1">Обладнання1</option>
+                                <option value="equipment2">Обладнання2</option>
+                                <option value="equipment3">Обладнання3</option>
+                                <option value="equipment4">Обладнання4</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            <div class="modal__footer">
+                <button type="submit" class="button" form="createRequestForm">
+                    <span class="button__icon">
+                        <img src="{% static "img/add-request.svg" %}" alt="">
+                    </span>
+                    <span class="button__text">Відправити заявку</span>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <!-- FullCalendar JS -->
+    <script src="{% static "js/moment.min.js" %}"></script>
+    <script src="{% static "js/fullcalendar.js" %}" ></script>
+    <script src="{% static "js/uk.js" %}"></script>
+    <script src="{% static "js/gcal.js" %}"></script>
+    <!-- Air-Datepicker JS -->
+    <script src="{% static "js/datepicker.min.js" %}"></script>
+{#    <script src="{% static "js/datepicker.en.js" %}"></script>#}
+    <script src="{% static "js/schedule.js" %}"></script>
+{% endblock %}
