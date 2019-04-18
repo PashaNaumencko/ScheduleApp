@@ -7,7 +7,18 @@ from CalendarApp import settings
 from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.models import User
 from oauth2client import client
+from social_core.backends.google import GoogleOAuth2
 # from oauth2client.client import verify_id_token
+
+
+class GoogleOAuth2GetPermissionBackend(GoogleOAuth2):
+    name = "get-permission"
+    # def get_scope(self):
+    #     print("data" + self.data.__str__())
+    #     scope = super(GoogleOAuth2GetPermissionBackend, self).get_scope()
+    #     if self.data.get('extrascope'):
+    #         scope = scope + [("https://www.googleapis.com/auth/calendar", )]
+    #     return scope
 
 
 class GoogleIDTokenAuthenticationBackend(object):
@@ -56,3 +67,5 @@ class GoogleIDTokenAuthenticationBackend(object):
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+
+

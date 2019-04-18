@@ -16,8 +16,6 @@
                     <form action="{% url "schedule" %}" name="createRequestForm" method="POST" class="form" id="createRequestForm">
                         {% csrf_token %}
 
-                        <input type="hidden" name="auth_code" id="authCode">
-
                         <label for="requestTime" class="label">
                             Період експлуатації *
                         </label>
@@ -36,7 +34,7 @@
                         </label>
                         <div class="input-wrap">
                             <span class="input-wrap__icon">
-                                <img src="{% static "img/insert_invitation.svg" %}" alt="" class="input-wrap__img">
+                                <img src="{% static "img/project-equip.svg" %}" alt="" class="input-wrap__img">
                             </span>
                             <select name="equipment" id="requestEquip" class="select">
                                 <option value="equipment1">Обладнання1</option>
@@ -44,6 +42,15 @@
                                 <option value="equipment3">Обладнання3</option>
                                 <option value="equipment4">Обладнання4</option>
                             </select>
+                        </div>
+                        <label for="requestDesc" class="label">
+                            Опис вашої роботи *
+                        </label>
+                        <div class="input-wrap">
+                            <span class="input-wrap__icon">
+                                <img src="{% static "img/project-desc.svg" %}" alt="" class="input-wrap__img">
+                            </span>
+                            <textarea name="description" class="textarea" id="requestDesc" cols="30" rows="10"></textarea>
                         </div>
                     </form>
                 </div>

@@ -120,6 +120,7 @@ html, body
     background-color: #ededed;
     border: 2px solid #cccccc;
     border-radius: 3px;
+    margin: 5px 0 15px 0;
 }
 
 .file-input__input

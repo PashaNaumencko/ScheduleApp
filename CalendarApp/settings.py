@@ -77,26 +77,49 @@ WSGI_APPLICATION = 'CalendarApp.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
+    # 'Schedule.backend.GoogleOAuth2GetPermissionBackend',
     # 'Schedule.backend.GoogleIDTokenAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 
 )
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+)
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "652133526103-v0g218kj5q5mrmhstc8h1rrbklvqou8p.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "SLFmL14if2SfH7a4dhKpMy5k"
-# SOCIAL_AUTH_URL_NAMESPACE = 'social'
-# # SOCIAL_AUTH_USER_MODEL = "django.contrib.auth.models.User"
-# SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-#     "https://www.googleapis.com/auth/calendar"
+SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+]
+# SOCIAL_AUTH_GET_PERMISSION_KEY = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+# SOCIAL_AUTH_GET_PERMISSION_SECRET = SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+# SOCIAL_AUTH_GET_PERMISSION_SCOPE = [
+#     "https://www.googleapis.com/auth/calendar.events",
+#     "https://www.googleapis.com/auth/userinfo.email",
+#     "https://www.googleapis.com/auth/userinfo.profile",
 # ]
+# SOCIAL_AUTH_GET_PERMISSION_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
+
+# SOCIAL_AUTH_USER_MODEL = "django.contrib.auth.models.User"
+
 
 GOOGLE_CLIENT_SECRETS_FILE = os.path.join(BASE_DIR, "client_secret.json")
 GOOGLE_CALENDAR_SECRETS_FILE = os.path.join(BASE_DIR, "calendar_secret.json")
 GOOGLE_CLIENT_ID = "652133526103-0au47p0qtlfe5frrtggvojohv79hcvmu.apps.googleusercontent.com";
-GOOGLE_API_SCOPES = [
-    "https://www.googleapis.com/auth/calendar.events"
-]
+GOOGLE_API_SCOPES = ["https://www.googleapis.com/auth/calendar.events", ]
 GOOGLE_API_SERVICE_NAME = 'calendar'
 GOOGLE_API_VERSION = 'v3'
 
