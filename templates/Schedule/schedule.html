@@ -24,7 +24,7 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/insert_invitation.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <input name="time" type="text" class="text-input datepicker-here"
+                            <input required autocomplete="off" name="time" type="text" class="input-wrap__input datepicker-here"
                                    data-range="true" data-multiple-dates-separator=" - "
                                    data-timepicker="true" id="requestTime">
                         </div>
@@ -36,7 +36,7 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/project-equip.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <select name="equipment" id="requestEquip" class="select">
+                            <select name="equipment" id="requestEquip" class="input-wrap__input">
                                 <option value="equipment1">Обладнання1</option>
                                 <option value="equipment2">Обладнання2</option>
                                 <option value="equipment3">Обладнання3</option>
@@ -50,12 +50,12 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/project-desc.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <textarea name="description" class="textarea" id="requestDesc" cols="30" rows="10"></textarea>
+                            <textarea required name="description" class="input-wrap__input" id="requestDesc" cols="30" rows="10"></textarea>
                         </div>
                     </form>
                 </div>
             <div class="modal__footer">
-                <button type="submit" class="button" form="createRequestForm">
+                <button type="submit" name="submit" class="button" form="createRequestForm">
                     <span class="button__icon">
                         <img src="{% static "img/add-request.svg" %}" alt="">
                     </span>
@@ -73,6 +73,5 @@
     <script src="{% static "js/gcal.js" %}"></script>
     <!-- Air-Datepicker JS -->
     <script src="{% static "js/datepicker.min.js" %}"></script>
-{#    <script src="{% static "js/datepicker.en.js" %}"></script>#}
     <script src="{% static "js/schedule.js" %}"></script>
 {% endblock %}

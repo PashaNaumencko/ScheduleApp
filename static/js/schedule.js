@@ -1,25 +1,93 @@
 // const apiKey = "AIzaSyBCawh2etNJZTS3G9t0K1O6y-MNQeK5xoY";
 const createRequestWindow = document.getElementById("createRequestOpen");
-
-// $("select").selectric();
-
+const createRequestForm = document.forms["createRequestForm"];
+const createRequestFormInputs = document.querySelectorAll('.input-wrap__input');
+console.log(createRequestForm);
+console.log(createRequestFormInputs);
 
 $('#requestTime').datepicker({
     language: {
-        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-        months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
-        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        today: 'Today',
-        clear: 'Clear',
+        days: ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П\'ятниця', 'Субота'],
+        daysShort: ['НД', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
+        daysMin: ['НД', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
+        months: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад','Грудень'],
+        monthsShort: ['Сiч', 'Лют', 'Бер', 'Квiт', 'Трав', 'Черв', 'Лип', 'Серп', 'Вер', 'Жовт', 'Лист', 'Груд'],
+        today: 'Сьогодні',
+        clear: 'Очистити',
         dateFormat: 'yyyy-mm-dd',
         timeFormat: 'hh:ii',
-        firstDay: 0,
+        firstDay: 1,
     },
-    position: 'bottom left',
+    position: 'bottom right',
     classes: 'datepicker-position',
 });
+
+
+createRequestForm.elements['time'].addEventListener('keydown', function (event) {
+    event.preventDefault();
+});
+
+
+// (function () {
+//     for (var input of createRequestFormInputs) {
+//         console.log(input.nodeName + ': ' + input.value);
+//         input.setCustomValidity('');
+//         checkEmptyInput(input);
+//         if (input.name === 'time') {
+//             checkDateFormat(input);
+//         }
+//     }
+// })();
+
+
+// createRequestForm.addEventListener('submit', function (event) {
+//     event.preventDefault();
+//     for (var input of createRequestFormInputs) {
+//         if (input.value === '') {
+//             input.setCustomValidity("Обов'язкове поле");
+//             //this.elements['submit'].click();
+//             console.log('submit');
+//         }
+//         else {
+//             input.setCustomValidity('');
+//         }
+//     }
+//     createRequestForm.submit();
+// });
+
+
+// function checkEmptyInput(input) {
+//     input.addEventListener('keyup', function () {
+//         if (this.value === '') {
+//             this.setCustomValidity("Обов'язкове поле");
+//             createRequestForm.elements['submit'].click();
+//             this.focus();
+//         }
+//         else {
+//             this.setCustomValidity('');
+//         }
+//     });
+// }
+
+// function checkDateFormat(input) {
+//     input.addEventListener('keyup', function () {
+//
+//         var isValidDateFormat = input.value.match('/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])\s(0[1-9]|1[0-9]|2[0-3])]\:(0[0-9]|[12345][]|)\s\-\sd{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])s(0[1-9]|1[0-9]|2[0-3])$/');
+//         console.log(input.value.split(' - '));
+//         if (!isValidDateFormat) {
+//             input.setCustomValidity('Поле дати має відповідати формату YYYY-MM-DD HH:II - YYYY-MM-DD HH:II');
+//             createRequestForm.elements['submit'].click();
+//             input.focus();
+//         }
+//         else {
+//             input.setCustomValidity('');
+//         }
+//
+//         this.setCustomValidity();
+//         createRequestForm.elements['submit'].click();
+//         input.focus();
+//     });
+// }
 
 $('#calendar').fullCalendar({
     googleCalendarApiKey: "AIzaSyBCawh2etNJZTS3G9t0K1O6y-MNQeK5xoY",
@@ -52,12 +120,8 @@ $('#calendar').fullCalendar({
     timezone: "Europe/Kiev",
     //When u select some space in the calendar do the following:
     select: function (start, end, allDay) {
-        //do something when space selected
-        //Show 'add event' modal
         createRequestWindow.classList.add("show");
-        // document.querySelector(".request-form__date-input").value = start.format("MM-DD-YYYY");
-        // document.querySelector(".request-form__start-time-input").value = start.format("HH-mm");
-        // document.querySelector(".request-form__end-time-input").value = end.format("HH-mm");
+        createRequestForm.elements['time'].value = start.format('YYYY-MM-DD HH:mm') + ' - ' + end.format('YYYY-MM-DD HH:mm');
         console.log(start, end, allDay);
     },
 });
