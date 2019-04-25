@@ -18,6 +18,7 @@ $('#requestTime').datepicker({
         timeFormat: 'hh:ii',
         firstDay: 1,
     },
+    toggleSelected: false,
     position: 'bottom right',
     classes: 'datepicker-position',
 });
@@ -131,7 +132,11 @@ window.addEventListener("click", function(event) {
         createRequestWindow.classList.remove("show");
     }
 });
-
+(function () {
+    if (document.getElementById('createRequestFormErrors')) {
+        createRequestWindow.classList.add("show");
+    }
+})();
 document.getElementById("createRequestClose").addEventListener("click", function(event) {
     createRequestWindow.classList.remove("show");
 });

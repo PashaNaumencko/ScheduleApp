@@ -24,9 +24,10 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/insert_invitation.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <input required autocomplete="off" name="time" type="text" class="input-wrap__input datepicker-here"
-                                   data-range="true" data-multiple-dates-separator=" - "
-                                   data-timepicker="true" id="requestTime">
+                            {{ form.time }}
+{#                            <input required autocomplete="off" name="time" type="text" class="input-wrap__input datepicker-here"#}
+{#                                   data-range="true" data-multiple-dates-separator=" - "#}
+{#                                   data-timepicker="true" id="requestTime">#}
                         </div>
 
                         <label for="requestEquip" class="label">
@@ -36,12 +37,13 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/project-equip.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <select name="equipment" id="requestEquip" class="input-wrap__input">
-                                <option value="equipment1">Обладнання1</option>
-                                <option value="equipment2">Обладнання2</option>
-                                <option value="equipment3">Обладнання3</option>
-                                <option value="equipment4">Обладнання4</option>
-                            </select>
+                            {{ form.equipment }}
+{#                            <select name="equipment" id="requestEquip" class="input-wrap__input">#}
+{#                                <option value="equipment1">Обладнання1</option>#}
+{#                                <option value="equipment2">Обладнання2</option>#}
+{#                                <option value="equipment3">Обладнання3</option>#}
+{#                                <option value="equipment4">Обладнання4</option>#}
+{#                            </select>#}
                         </div>
                         <label for="requestDesc" class="label">
                             Опис вашої роботи *
@@ -50,9 +52,18 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/project-desc.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <textarea required name="description" class="input-wrap__input" id="requestDesc" cols="30" rows="10"></textarea>
+                            {{ form.description }}
+{#                            <textarea required name="description" class="input-wrap__input" id="requestDesc" cols="30" rows="10"></textarea>#}
                         </div>
                     </form>
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="form__errors" id="createRequestFormErrors">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
                 </div>
             <div class="modal__footer">
                 <button type="submit" name="submit" class="button" form="createRequestForm">
