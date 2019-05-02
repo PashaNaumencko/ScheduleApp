@@ -29,13 +29,19 @@ const uploadButton = document.getElementById('projectDocUploadButton');
 const projectDocInput = document.getElementById('projectDocInput');
 const fileInfo = document.querySelector('.file-input__info');
 
-uploadButton.addEventListener('click', function (event) {
-    // event.preventDefault();
-    projectDocInput.click();
-});
+// uploadButton.addEventListener('click', function (event) {
+//     // event.preventDefault();
+//     projectDocInput.click();
+// });
+//
+// projectDocInput.addEventListener('change', function (event) {
+//     const name = projectDocInput.value.split(/\\|\//).pop();
+//     fileInfo.innerHTML = name.length > 20 ? name.substr(name.length - 20) : name;
+// });
 
-projectDocInput.addEventListener('change', function (event) {
-    const name = projectDocInput.value.split(/\\|\//).pop();
-    fileInfo.innerHTML = name.length > 20 ? name.substr(name.length - 20) : name;
-});
 
+(function () {
+    if (document.getElementById('createRequestFormErrors')) {
+        createRequestWindow.classList.add("show");
+    }
+})();

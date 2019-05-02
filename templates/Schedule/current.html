@@ -1,30 +1,34 @@
 {% extends "Schedule/projects_wrapper.html" %}
 {% load static %}
 {% block projects %}
-    <div class="projects__list-item">
-        <div class="projects__header">
-            <div class="projects__title">Назва найтехнологічнішого проекту в світі</div>
-            <span class="projects__days">4 дні тому</span>
-        </div>
-        <div class="projects__body">
-            <div class="projects__founder">Засновник: Іван Іванов</div>
-            <div class="projects__desc"><strong>Опис проекту:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Alias cupiditate dolor et, id illo ipsa laudantium, magnam mollitia, necessitatibus nobis placeat sed voluptate.
+    {% for project in projects %}
+        <a href="{% url "requests" %}" class="projects__link link">
+            <div class="projects__list-item">
+                <div class="projects__header">
+                    <div class="projects__title">{{ project.project.title }}</div>
+                    <span class="projects__days">4 дні тому</span>
+                </div>
+                <div class="projects__body">
+                    <div class="projects__founder">
+                        <strong>Адміністратор проекту:</strong>
+                        {{ project.user.first_name }} {{ project.user.last_name }}
+                    </div>
+                    <div class="projects__desc">
+                        <strong>Опис проекту:</strong> {{ project.project.description }}
+                    </div>
+                </div>
+                <div class="projects__footer">
+                    <form action="" class="form" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="button mr-10">
+                            <span class="button__icon">
+                                <img src="{% static "img/add-to-project.svg" %}" alt="">
+                            </span>
+                            <span class="button__text">Приєднатися до проекту</span>
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="projects__footer">
-            <button type="submit" class="button mr-10">
-                <span class="button__icon">
-                    <img src="{% static "img/close-project.svg" %}" alt="">
-                </span>
-                <span class="button__text">Видалити проект</span>
-            </button>
-            <button type="submit" class="button button-outline">
-                <span class="button__icon">
-                    <img src="{% static "img/description.svg" %}" alt="">
-                </span>
-                <span class="button__text">Детальніше</span>
-            </button>
-        </div>
-    </div>
+        </a>
+    {% endfor %}
 {% endblock %}

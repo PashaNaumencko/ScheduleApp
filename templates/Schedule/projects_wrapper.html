@@ -5,10 +5,13 @@
         <div class="projects-nav">
             <ul class="list">
                 <li class="projects-nav__item">
-                    <a href="{% url "my" %}" class="link active projects-nav__link" id="">Поточні проекти</a>
+                    <a href="{% url "current" %}" class="link active projects-nav__link" id="">Поточні проекти</a>
                 </li>
                 <li class="projects-nav__item">
-                    <a href="{% url "current" %}" class="link projects-nav__link" id="">Мої проекти</a>
+                    <a href="{% url "my" %}" class="link projects-nav__link" id="">Мої проекти</a>
+                </li>
+                <li class="projects-nav__item">
+                    <a href="{% url "project-admin" %}" class="link projects-nav__link" id="">Адміністрування</a>
                 </li>
                 <li class="projects-nav__item">
                     <a href="{% url "requests" %}" class="link projects-nav__link" id="">Заявки</a>
@@ -45,7 +48,8 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/project-title.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <input name="title" type="text" class="input-wrap__input" id="projectTitle">
+                            {{ create_project_form.title }}
+{#                            <input name="title" type="text" class="input-wrap__input" id="projectTitle">#}
                         </div>
 
                         <label for="projectDesc" class="label">
@@ -55,7 +59,8 @@
                             <span class="input-wrap__icon">
                                 <img src="{% static "img/project-desc.svg" %}" alt="" class="input-wrap__img">
                             </span>
-                            <textarea name="desc" class="input-wrap__input" id="projectDesc" cols="30" rows="10"></textarea>
+                            {{ create_project_form.description }}
+{#                            <textarea name="desc" class="input-wrap__input" id="projectDesc" cols="30" rows="10"></textarea>#}
                         </div>
 
 
@@ -69,23 +74,31 @@
                         </label>
 
                         <div class="file-input">
-                            <input name="document" type="file" class="file-input__input" id="projectDocInput">
+{#                            <input name="document" type="file" class="file-input__input" id="projectDocInput">#}
+{#                            {{ create_project_form.document }}#}
                             <button type="button" class="file-input__browse" id="projectDocUploadButton">
                                Переглянути файли
                             </button>
                             <span class="file-input__info">Завантажити файл</span>
                         </div>
-
                     </form>
+                    {{ form.non_field_errors }}
+                    {% if create_project_form.non_field_errors %}
+                        {% for error in create_project_form.non_field_errors %}
+                            <div class="form__errors" id="createRequestFormErrors">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                <div class="modal__footer">
-                    <button type="submit" class="button" form="createProjectForm">
-                        <span class="button__icon">
-                            <img src="{% static "img/add-request.svg" %}" alt="">
-                        </span>
-                        <span class="button__text">Відправити заявку</span>
-                    </button>
-                </div>
+            <div class="modal__footer">
+                <button type="submit" class="button" name="create_project" form="createProjectForm">
+                    <span class="button__icon">
+                        <img src="{% static "img/add-request.svg" %}" alt="">
+                    </span>
+                    <span class="button__text">Відправити заявку</span>
+                </button>
+            </div>
         </div>
     </div>
 {% endblock %}

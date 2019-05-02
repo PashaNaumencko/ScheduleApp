@@ -1,9 +1,8 @@
 from django import forms
+from .models import Request, Project
 
 
 class RequestForm(forms.Form):
-
-    # service = None
 
     CHOICES = (
         ("equipment1", "Обладнання1"),
@@ -69,6 +68,29 @@ class RequestForm(forms.Form):
             ],
         }
         return event
+
+
+class CreateProjectForm(forms.Form):
+    title = forms.CharField(required=True, max_length=100, widget=forms.TextInput(attrs={
+        "class": "input-wrap__input", "id": "projectTitle", }))
+    description = forms.CharField(required=True, max_length=600, widget=forms.Textarea(attrs={
+        "class": "input-wrap__input", "id": "projectDesc", "cols": "30", "rows": "10", }))
+    # document = forms.FileField(widget=forms.FileInput(attrs={
+    #     "class": "file-input__input", "id": "projectDocInput", }))
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(CreateProjectForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        title = self.cleaned_data["title"]
+        if Request.objects.filter(title=title).exists() or Project.objects.filter(title=title).exists():
+            print("error")
+            raise forms.ValidationError("Проект або заявка з введеной назвою все існує. Будь ласка введіть іншу назву.")
+        return self.cleaned_data
+
+    def save(self):
+        Request.objects.create(initiator=self.user, title=self.cleaned_data["title"], description=self.cleaned_data["description"])
 
 
 
