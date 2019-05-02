@@ -1,32 +1,101 @@
-// const apiKey = "AIzaSyBCawh2etNJZTS3G9t0K1O6y-MNQeK5xoY";
-const createRequestWindow = document.getElementById("createRequestOpen");
-const createRequestForm = document.forms["createRequestForm"];
-const createRequestFormInputs = document.querySelectorAll('.input-wrap__input');
-console.log(createRequestForm);
-console.log(createRequestFormInputs);
+(function () {
+    const createRequestWindow = document.getElementById("createRequestOpen");
+    const createRequestForm = document.forms["createRequestForm"];
+    const createRequestFormInputs = document.querySelectorAll('.input-wrap__input');
+    const requestFormErrors = document.getElementById('createRequestFormErrors');
+    const notifyMessage = document.getElementById('notifyMessage');
 
-$('#requestTime').datepicker({
-    language: {
-        days: ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П\'ятниця', 'Субота'],
-        daysShort: ['НД', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
-        daysMin: ['НД', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
-        months: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад','Грудень'],
-        monthsShort: ['Сiч', 'Лют', 'Бер', 'Квiт', 'Трав', 'Черв', 'Лип', 'Серп', 'Вер', 'Жовт', 'Лист', 'Груд'],
-        today: 'Сьогодні',
-        clear: 'Очистити',
-        dateFormat: 'yyyy-mm-dd',
-        timeFormat: 'hh:ii',
-        firstDay: 1,
-    },
-    toggleSelected: false,
-    position: 'bottom right',
-    classes: 'datepicker-position',
-});
+    console.log(createRequestForm);
+    console.log(createRequestFormInputs);
+
+    window.addEventListener("click", function(event) {
+        if (event.target === createRequestWindow) {
+            createRequestWindow.classList.remove("show");
+        }
+    });
+
+    document.getElementById("createRequestClose").addEventListener("click", function(event) {
+        createRequestWindow.classList.remove("show");
+    });
 
 
-createRequestForm.elements['time'].addEventListener('keydown', function (event) {
-    event.preventDefault();
-});
+
+    $('#requestTime').datepicker({
+        language: {
+            days: ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П\'ятниця', 'Субота'],
+            daysShort: ['НД', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
+            daysMin: ['НД', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
+            months: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад','Грудень'],
+            monthsShort: ['Сiч', 'Лют', 'Бер', 'Квiт', 'Трав', 'Черв', 'Лип', 'Серп', 'Вер', 'Жовт', 'Лист', 'Груд'],
+            today: 'Сьогодні',
+            clear: 'Очистити',
+            dateFormat: 'yyyy-mm-dd',
+            timeFormat: 'hh:ii',
+            firstDay: 1,
+        },
+        toggleSelected: false,
+        position: 'bottom right',
+        classes: 'datepicker-position',
+    });
+
+    createRequestForm.elements['time'].addEventListener('keydown', function (event) {
+        event.preventDefault();
+    });
+
+
+    $('#calendar').fullCalendar({
+        googleCalendarApiKey: "AIzaSyBCawh2etNJZTS3G9t0K1O6y-MNQeK5xoY",
+        eventSources: [
+            {
+
+                googleCalendarId: '1ga5hvcp7huhrh26vpa88qsf84@group.calendar.google.com',
+            },
+        ],
+        customButtons: {
+            createRequestButton: {
+                text: 'Створити заявку',
+                click: function() {
+
+                    createRequestWindow.classList.add("show");
+                }
+            }
+            },
+        locale: "uk",
+        defaultView: "agendaWeek",
+        allDaySlot: false,
+        slotDuration: "00:30",
+        height: "parent",
+        header: {
+            left:   'today createRequestButton prev,next title',
+            center: '',
+            right:  'month agendaWeek agendaDay',
+        },
+        events: [],
+        editable: true,
+        selectable: true,
+        timezone: "Europe/Kiev",
+        select: function (start, end, allDay) {
+            createRequestWindow.classList.add("show");
+            createRequestForm.elements['time'].value = start.format('YYYY-MM-DD HH:mm') + ' - ' + end.format('YYYY-MM-DD HH:mm');
+            console.log(start, end, allDay);
+            },
+    });
+
+    if (requestFormErrors) {
+        createRequestWindow.classList.add("show");
+    }
+    if (notifyMessage) {
+        setTimeout(function () {
+            notifyMessage.classList.add('notify_hide');
+        }, 5000);
+    }
+
+})();
+
+
+
+
+
 
 
 // (function () {
@@ -90,54 +159,8 @@ createRequestForm.elements['time'].addEventListener('keydown', function (event) 
 //     });
 // }
 
-$('#calendar').fullCalendar({
-    googleCalendarApiKey: "AIzaSyBCawh2etNJZTS3G9t0K1O6y-MNQeK5xoY",
-    eventSources: [
-        {
-            googleCalendarId: '1ga5hvcp7huhrh26vpa88qsf84@group.calendar.google.com',
-        },
-    ],
-    customButtons: {
-        createRequestButton: {
-            text: 'Створити заявку',
-            click: function() {
-                createRequestWindow.classList.add("show");
-            }
-        }
-    },
-    locale: "uk",
-    defaultView: "agendaWeek",
-    allDaySlot: false,
-    slotDuration: "00:30",
-    height: "parent",
-    header: {
-        left:   'today createRequestButton prev,next title',
-        center: '',
-        right:  'month agendaWeek agendaDay',
-    },
-    events: [],
-    editable: true,
-    selectable: true,
-    timezone: "Europe/Kiev",
-    //When u select some space in the calendar do the following:
-    select: function (start, end, allDay) {
-        createRequestWindow.classList.add("show");
-        createRequestForm.elements['time'].value = start.format('YYYY-MM-DD HH:mm') + ' - ' + end.format('YYYY-MM-DD HH:mm');
-        console.log(start, end, allDay);
-    },
-});
 
-window.addEventListener("click", function(event) {
-    if (event.target === createRequestWindow) {
-        createRequestWindow.classList.remove("show");
-    }
-});
-(function () {
-    if (document.getElementById('createRequestFormErrors')) {
-        createRequestWindow.classList.add("show");
-    }
-})();
-document.getElementById("createRequestClose").addEventListener("click", function(event) {
-    createRequestWindow.classList.remove("show");
-});
+
+
+
 

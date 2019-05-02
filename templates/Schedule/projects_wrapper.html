@@ -69,23 +69,23 @@
 {#                            <textarea name="desc" class="textarea" id="projectDesc" cols="30" rows="10"></textarea>#}
 {#                        </label>#}
 
-                        <label for="projectDocInput" class="label mb-10">
-                            Документ вашого проекту
-                        </label>
-
-                        <div class="file-input">
+{#                        <label for="projectDocInput" class="label mb-10">#}
+{#                            Документ вашого проекту#}
+{#                        </label>#}
+{##}
+{#                        <div class="file-input">#}
 {#                            <input name="document" type="file" class="file-input__input" id="projectDocInput">#}
 {#                            {{ create_project_form.document }}#}
-                            <button type="button" class="file-input__browse" id="projectDocUploadButton">
-                               Переглянути файли
-                            </button>
-                            <span class="file-input__info">Завантажити файл</span>
-                        </div>
+{#                            <button type="button" class="file-input__browse" id="projectDocUploadButton">#}
+{#                               Переглянути файли#}
+{#                            </button>#}
+{#                            <span class="file-input__info">Завантажити файл</span>#}
+{#                        </div>#}
                     </form>
                     {{ form.non_field_errors }}
                     {% if create_project_form.non_field_errors %}
                         {% for error in create_project_form.non_field_errors %}
-                            <div class="form__errors" id="createRequestFormErrors">
+                            <div class="form__errors" id="createProjectFormErrors">
                                 {{ error }}
                             </div>
                         {% endfor %}

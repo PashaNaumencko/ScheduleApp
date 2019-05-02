@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +43,14 @@ INSTALLED_APPS = [
     'social_django',
     'Schedule',
 ]
+
+MESSAGE_TAGS = {
+    # messages.DEBUG: 'alert-info',
+    # messages.INFO: 'alert-info',
+    messages.SUCCESS: 'notify',
+    # messages.WARNING: 'alert-warning',
+    # messages.ERROR: 'alert-danger',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,13 +89,13 @@ AUTHENTICATION_BACKENDS = (
     # 'Schedule.backend.GoogleOAuth2GetPermissionBackend',
     # 'Schedule.backend.GoogleIDTokenAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
-
 )
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.social_user',
+    # 'Schedule.views.schedule.redirect_if_no_refresh_token'
     'social_core.pipeline.user.get_username',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
@@ -104,15 +113,10 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",
 ]
-# SOCIAL_AUTH_GET_PERMISSION_KEY = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-# SOCIAL_AUTH_GET_PERMISSION_SECRET = SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
-# SOCIAL_AUTH_GET_PERMISSION_SCOPE = [
-#     "https://www.googleapis.com/auth/calendar.events",
-#     "https://www.googleapis.com/auth/userinfo.email",
-#     "https://www.googleapis.com/auth/userinfo.profile",
-# ]
-# SOCIAL_AUTH_GET_PERMISSION_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
-
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'access_type': 'offline',
+    'approval_prompt': 'auto',
+}
 # SOCIAL_AUTH_USER_MODEL = "django.contrib.auth.models.User"
 
 

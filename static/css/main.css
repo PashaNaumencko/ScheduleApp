@@ -32,6 +32,52 @@ html, body
     width: 100%;
 }
 
+/*.notify*/
+/*{*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*width: 100%;*/
+    /*height: 0;*/
+    /*color: white;*/
+    /*text-align: center;*/
+    /*background: rgba(0,0,0,.6);*/
+    /*overflow: hidden;*/
+    /*transition: height .2s;*/
+/*}*/
+
+/*.notify_active*/
+/*{*/
+    /*height: 50px;*/
+/*}*/
+
+.notify
+{
+    max-height: 100%;
+    position: fixed;
+    bottom: 5px;
+    /*left: 20px;*/
+    right: 30px;
+    z-index: 1001;
+    transition: opacity 0.5s ease-in;
+}
+
+.notify__box
+{
+    font-size: 16px;
+    color: white;
+    background: rgba(0, 0, 0, 0.9);
+    line-height: 1.3em;
+    padding: 10px 15px;
+    margin: 5px 10px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.notify_hide
+{
+    opacity: 0;
+}
+
 .link
 {
     color: inherit;

@@ -18,7 +18,7 @@ class RequestForm(forms.Form):
         "class": "input-wrap__input", "id": "requestDesc", "cols": "30", "rows": "10", }))
 
     def __init__(self, *args, **kwargs):
-        self.service = kwargs.pop("service")
+        self.service = kwargs.pop("service", None)
         super(RequestForm, self).__init__(*args, **kwargs)
 
     def clean(self):

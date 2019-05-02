@@ -5,6 +5,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from ..models import Project, Request, UserInProject
 from django.contrib.auth.models import User
 from ..forms import CreateProjectForm
+from django.contrib import messages
 
 
 @ensure_csrf_cookie
@@ -66,6 +67,7 @@ def create_project(request, template_name, reverse_url, projects):
     if create_project_form.is_valid():
         print("submit")
         create_project_form.save()
+        messages.success(request, "Заявка успішно відправлена", extra_tags="notify_active")
         return redirect(reverse(reverse_url))
     else:
         print("error render")

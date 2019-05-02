@@ -25,23 +25,17 @@ window.addEventListener("click", function(event) {
     }
 });
 
-const uploadButton = document.getElementById('projectDocUploadButton');
-const projectDocInput = document.getElementById('projectDocInput');
-const fileInfo = document.querySelector('.file-input__info');
-
-// uploadButton.addEventListener('click', function (event) {
-//     // event.preventDefault();
-//     projectDocInput.click();
-// });
-//
-// projectDocInput.addEventListener('change', function (event) {
-//     const name = projectDocInput.value.split(/\\|\//).pop();
-//     fileInfo.innerHTML = name.length > 20 ? name.substr(name.length - 20) : name;
-// });
-
-
 (function () {
-    if (document.getElementById('createRequestFormErrors')) {
-        createRequestWindow.classList.add("show");
+    var projectFormErrors = document.getElementById('createProjectFormErrors');
+    var notifyMessage = document.getElementById('notifyMessage');
+
+    if (projectFormErrors) {
+        createProjectWindow.classList.add("show");
+    }
+    if (notifyMessage) {
+        setTimeout(function () {
+            notifyMessage.classList.add('notify_hide');
+        }, 5000);
     }
 })();
+

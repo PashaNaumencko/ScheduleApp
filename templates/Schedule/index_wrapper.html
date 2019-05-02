@@ -34,6 +34,15 @@
 <body>
     <div class="wrapper">
 
+        <!-- Notifications Holder -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="{{ message.tags }}" id="notifyMessage">
+                    <div class="notify__box">{{ message }}</div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <!-- Header Holder -->
         <header class="header">
             <div class="header__logo">
@@ -76,6 +85,7 @@
         
         <!-- Page Content Holder -->
         <main class="content">
+
             <aside class="aside">
                 <ul class="list">
                     <li class="aside__item">
