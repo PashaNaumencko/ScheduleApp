@@ -1,5 +1,5 @@
 from django import forms
-from .models import Request, Project
+from .models import Project, Request
 
 
 class RequestForm(forms.Form):
@@ -75,11 +75,9 @@ class CreateProjectForm(forms.Form):
         "class": "input-wrap__input", "id": "projectTitle", }))
     description = forms.CharField(required=True, max_length=600, widget=forms.Textarea(attrs={
         "class": "input-wrap__input", "id": "projectDesc", "cols": "30", "rows": "10", }))
-    # document = forms.FileField(widget=forms.FileInput(attrs={
-    #     "class": "file-input__input", "id": "projectDocInput", }))
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop("user")
+        self.user = kwargs.pop("user", None)
         super(CreateProjectForm, self).__init__(*args, **kwargs)
 
     def clean(self):
@@ -90,7 +88,8 @@ class CreateProjectForm(forms.Form):
         return self.cleaned_data
 
     def save(self):
-        Request.objects.create(initiator=self.user, title=self.cleaned_data["title"], description=self.cleaned_data["description"])
+        print("Request send seccessfully")
+        Request.objects.create(admin=self.user, title=self.cleaned_data["title"], description=self.cleaned_data["description"])
 
 
 

@@ -36,9 +36,10 @@ def schedule(request):
             return redirect(reverse("schedule"))
         else:
             return render(request, template_name, {"form": form})
-    # form = RequestForm(service=get_api_service(access_token))
-    form = RequestForm()
-    return render(request, template_name, {"form": form})
+    else:
+        # form = RequestForm(service=get_api_service(access_token))
+        form = RequestForm()
+        return render(request, template_name, {"form": form})
 
 
 def get_google_oauth2_access_token(user):

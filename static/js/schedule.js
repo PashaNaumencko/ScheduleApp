@@ -14,7 +14,7 @@
         }
     });
 
-    document.getElementById("createRequestClose").addEventListener("click", function(event) {
+    document.getElementById("createRequestClose").addEventListener("click", function() {
         createRequestWindow.classList.remove("show");
     });
 
@@ -91,11 +91,6 @@
     }
 
 })();
-
-
-
-
-
 
 
 // (function () {

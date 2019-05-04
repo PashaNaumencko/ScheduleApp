@@ -56,7 +56,7 @@ html, body
     position: fixed;
     bottom: 5px;
     /*left: 20px;*/
-    right: 30px;
+    right: 20px;
     z-index: 1001;
     transition: opacity 0.5s ease-in;
 }
@@ -76,6 +76,33 @@ html, body
 .notify_hide
 {
     opacity: 0;
+}
+
+.pagination
+{
+    margin: 0 auto;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination__link, .pagination__current
+{
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s
+}
+
+.pagination__link_active
+{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.pagination__link:hover:not(.pagination__link_active)
+{
+    background-color: #ddd;
 }
 
 .link
@@ -663,9 +690,20 @@ html, body
 .projects__desc
 {
     width: 75%;
+    font-size: 1.15rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.projects__participant
+{
+    width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.15rem;
 }
 
 .projects__footer

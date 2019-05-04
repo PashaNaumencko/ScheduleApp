@@ -1,36 +1,38 @@
 {% extends "Schedule/projects_wrapper.html" %}
 {% load static %}
 {% block projects %}
-    {% for request in projects %}
+    {% for project in projects %}
         <a href="{% url "requests" %}" class="projects__link link">
          <div class="projects__list-item">
              <div class="projects__header">
-                 <div class="projects__title">{{ request.title }}</div>
+                 <div class="projects__title">{{ project.title }}</div>
                  <span class="projects__days">4 дні тому</span>
              </div>
              <div class="projects__body">
                  <div class="projects__founder">
-                     <strong>Адміністратор проекту:</strong>
-                     {{ request.initiator.first_name }} {{ request.initiator.last_name }}
+                     <strong>Керівник проекту:</strong>
+                     {{ project.admin.first_name }} {{ project.admin.last_name }}
                  </div>
                  <div class="projects__desc">
                      <strong>Опис проекту:</strong>
-                     {{ request.description }}
+                     {{ project.description }}
                  </div>
              </div>
              <div class="projects__footer">
-                 <form action="" class="form" method="post">
+                 <form action="{% url "requests" %}" class="form" method="post">
                      {% csrf_token %}
-                     <button type="submit" class="button mr-10">
+                     <input type="hidden" name="request_id" value="{{ project.pk }}">
+                     <button type="submit" name="create_project" class="button mr-10">
                          <span class="button__icon">
                          <img src="{% static "img/approve-project.svg" %}" alt="">
                      </span>
                          <span class="button__text">Створити проект</span>
                      </button>
                  </form>
-                 <form action="" class="form" method="post">
+                 <form action="{% url "requests" %}" class="form" method="post">
                      {% csrf_token %}
-                     <button type="submit" class="button mr-10">
+                     <input type="hidden" name="request_id" value="{{ project.pk }}">
+                     <button type="submit" name="delete_project_request" class="button mr-10">
                          <span class="button__icon">
                              <img src="{% static "img/close-project.svg" %}" alt="">
                          </span>
@@ -41,4 +43,15 @@
          </div>
         </a>
     {% endfor %}
+    <div class="pagination">
+        {% if contacts.has_previous %}
+            <a class="pagination__link" href="?page={{ contacts.previous_page_number }}">&laquo;</a>
+        {% endif %}
+        <span class="pagination__current">
+            {{ contacts.number }} з {{ contacts.paginator.num_pages }}
+        </span>
+        {% if contacts.has_next %}
+            <a class="pagination__link" href="?page={{ contacts.next_page_number }}">&raquo;</a>
+        {% endif %}
+    </div>
 {% endblock %}

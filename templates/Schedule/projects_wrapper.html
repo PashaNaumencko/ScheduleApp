@@ -11,9 +11,6 @@
                     <a href="{% url "my" %}" class="link projects-nav__link" id="">Мої проекти</a>
                 </li>
                 <li class="projects-nav__item">
-                    <a href="{% url "project-admin" %}" class="link projects-nav__link" id="">Адміністрування</a>
-                </li>
-                <li class="projects-nav__item">
                     <a href="{% url "requests" %}" class="link projects-nav__link" id="">Заявки</a>
                 </li>
             </ul>
@@ -28,6 +25,7 @@
         <div class="projects-list">
             {% block projects %}
             {% endblock %}
+
         </div>
     </div>
 
@@ -92,7 +90,7 @@
                     {% endif %}
                 </div>
             <div class="modal__footer">
-                <button type="submit" class="button" name="create_project" form="createProjectForm">
+                <button type="submit" class="button" name="create_project_request" form="createProjectForm">
                     <span class="button__icon">
                         <img src="{% static "img/add-request.svg" %}" alt="">
                     </span>

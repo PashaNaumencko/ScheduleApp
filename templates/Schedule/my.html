@@ -4,21 +4,29 @@
     {% for project in projects %}
          <div class="projects__list-item">
              <div class="projects__header">
-                 <div class="projects__title">{{ project.project.title }}</div>
+                 <div class="projects__title">{{ project.title }}</div>
                  <span class="projects__days">4 дні тому</span>
              </div>
              <div class="projects__body">
                  <div class="projects__founder">
-                     <strong>Адміністратор проекту:</strong>
-                     {{ project.user.first_name }} {{ project.user.last_name }}
+                     <strong>Керівник проекту:</strong>
+                     {{ project.admin.first_name }} {{ project.admin.last_name }}
                  </div>
-                 <div class="projects__desc"><strong>Опис проекту:</strong> {{ project.project.description }}
+                 <div class="projects__desc">
+                     <strong>Опис проекту:</strong> {{ project.description }}
+                 </div>
+                 <div class="projects__participant">
+                        <strong>Учасники проекту:</strong>
+                        {% for participant in project.participants.all %}
+                            {{ participant.first_name }} {{ participant.last_name }},
+                        {% endfor %}
                  </div>
              </div>
              <div class="projects__footer">
-                 <form action="" class="form" method="post">
+                 <form action="{% url "my" %}" class="form" method="post">
                      {% csrf_token %}
-                     <button type="submit" name="project_delete" class="button mr-10">
+                     <input type="hidden" name="project_id" value="{{ project.pk }}">
+                     <button type="submit" name="delete_project" class="button mr-10">
                          <span class="button__icon">
                              <img src="{% static "img/close-project.svg" %}" alt="">
                          </span>
